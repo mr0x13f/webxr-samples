@@ -43,7 +43,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           <a class="back" href="./index.html">Back</a>
         </p>
         <p>
-          glsl version header + webgl2 + embedded fragment shader
+          bup
         </p>
       </details>
     </header>
@@ -65,6 +65,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
       in float vDepthDistance;
 
+      out vec4 fragColor;
+
       const highp float kMaxDepth = 8.0; // In meters.
       const float kInvalidDepthThreshold = 0.01;
 
@@ -81,7 +83,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
       void main(void) {
         highp float normalized_depth = clamp(vDepthDistance / 8.0, 0.0, 1.0);
-        gl_FragColor = vec4(DepthGetColorVisualization(normalized_depth), 0.75);
+        fragColor = vec4(DepthGetColorVisualization(normalized_depth), 0.75);
       }
 
       // Insert turbo.glsl here.
