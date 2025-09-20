@@ -43,7 +43,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           <a class="back" href="./index.html">Back</a>
         </p>
         <p>
-          logging
+          logging 2
         </p>
         <p id="log">
 
@@ -51,7 +51,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       </details>
     </header>
     <script id="vertexShader" type="x-shader/x-vertex">
-      #version 300 es
       precision mediump float;
 
       in vec2 aVertexPosition;
@@ -65,7 +64,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       }
     </script>
     <script id="fragmentShader" type="x-shader/x-vertex">
-      #version 300 es
       precision mediump float;
 
       uniform sampler2D uDepthTexture;
@@ -239,8 +237,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       }
 
       async function fetchShaders() {
-        vertexShaderSource = document.getElementById('vertexShader').textContent;
-        fragmentShaderSource = document.getElementById('fragmentShader').textContent;
+        const SHADER_VERSION_HEADER = '#version 300 es\n';
+        vertexShaderSource = SHADER_VERSION_HEADER + document.getElementById('vertexShader').textContent;
+        fragmentShaderSource = SHADER_VERSION_HEADER + document.getElementById('fragmentShader').textContent;
       }
 
       function initializeGL() {
