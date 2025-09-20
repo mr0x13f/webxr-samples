@@ -43,7 +43,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           <a class="back" href="./index.html">Back</a>
         </p>
         <p>
-          iteration: new frag shader 3
+          iteration: log buffer bytes
         </p>
       </details>
     </header>
@@ -324,6 +324,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         );
 
         gl.bindTexture(gl.TEXTURE_2D, depthTexture);
+
+        console.log("Expected bytes:", depthData.width * depthData.height);
+        console.log("Got bytes:", depthData.data.byteLength);
 
         // Supply the data buffer after converting it to Uint8Array - the
         // dataBuffer.buffer is an Uint16Array, but the gl.texImage2D expects Uint8Array
