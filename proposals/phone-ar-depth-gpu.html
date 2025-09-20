@@ -43,7 +43,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     <a class="back" href="./index.html">Back</a>
                 </p>
                 <p>
-                    iteration: debug depth buffer upload 2
+                    iteration: inverse depth view matrix
                 </p>
             </details>
         </header>
@@ -337,7 +337,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 gl.activeTexture(gl.TEXTURE0);
                 gl.uniform1i(programInfo.uniformLocations.depthTexture, 0);
 
-                gl.uniformMatrix4fv(programInfo.uniformLocations.uvTransform, false, depthData.normTextureFromNormView?.matrix ?? depthData.normDepthBufferFromNormView?.matrix);
+                gl.uniformMatrix4fv(programInfo.uniformLocations.uvTransform, false, depthData.normTextureFromNormView?.matrix ?? depthData.normDepthBufferFromNormView?.inverse);
 
                 gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
             }
