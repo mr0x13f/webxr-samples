@@ -43,7 +43,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           <a class="back" href="./index.html">Back</a>
         </p>
         <p>
-          iteration: touch position
+          iteration: depth buffer texture single channel
         </p>
       </details>
     </header>
@@ -71,10 +71,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       out vec4 fragColor;
 
       float DepthGetMillimeters(in sampler2D depth_texture, in vec2 depth_uv) {
-        // Depth is packed into the luminance and alpha components of its texture.
-        // The texture is a normalized format, storing millimeters.
-        vec2 packedDepthAndVisibility = texture(depth_texture, depth_uv).ra;
-        return dot(packedDepthAndVisibility, vec2(255.0, 256.0 * 255.0));
+        float depthByte = texture(depth_texture, depth_uv).r; // single channel
+        return depthByte * 1.0; // or scale if needed
       }
 
       const highp float kMaxDepth = 8000.0; // In millimeters.
@@ -213,8 +211,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         });
 
         session.addEventListener("select", (event) => {
-          let touchGamePad = event.inputSource.gamepad;
-          console.log(`touch: ${touchGamePad.axes[0]}, ${touchGamePad.axes[1]}`);
+          let [x, y] = event.inputSource.gamepad.axes;
+          console.log(`touch: ${x}, ${y}`);
         });
       }
 
@@ -393,8 +391,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         // Supply the data buffer after converting it to Uint8Array - the
         // dataBuffer.buffer is an Uint16Array, but the gl.texImage2D expects Uint8Array
         // when using gl.UNSIGNED_BYTE type.
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.LUMINANCE_ALPHA, depthData.width,
-                      depthData.height, 0, gl.LUMINANCE_ALPHA, gl.UNSIGNED_BYTE,
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.R8, depthData.width,
+                      depthData.height, 0, gl.RED, gl.UNSIGNED_BYTE,
                       new Uint8Array(dataBuffer.buffer, dataBuffer.byteOffset, dataBuffer.byteLength));
 
         gl.activeTexture(gl.TEXTURE0);
