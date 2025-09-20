@@ -43,7 +43,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     <a class="back" href="./index.html">Back</a>
                 </p>
                 <p>
-                    iteration: red fog
+                    iteration: red fog 2
                 </p>
             </details>
         </header>
@@ -72,7 +72,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             out vec4 fragColor;
 
             void main(void) {
-                float depthInMeters = float(texture(uDepthTexture, vTexCoord)).r * uRawDepthToMeters;
+                float depthInMeters = float(texture(uDepthTexture, vTexCoord).r) * uRawDepthToMeters;
                 float intensity = clamp(depthMeters / 5.0, 0.0, 1.0);
                 fragColor = vec4(intensity, 0.0, 0.0, 0.8);
             }
