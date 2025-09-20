@@ -43,7 +43,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     <a class="back" href="./index.html">Back</a>
                 </p>
                 <p>
-                    iteration: red fog 2
+                    iteration: red fog 3
                 </p>
             </details>
         </header>
@@ -73,8 +73,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
             void main(void) {
                 float depthInMeters = float(texture(uDepthTexture, vTexCoord).r) * uRawDepthToMeters;
-                float intensity = clamp(depthMeters / 5.0, 0.0, 1.0);
-                fragColor = vec4(intensity, 0.0, 0.0, 0.8);
+                float fogIntensity = clamp(depthInMeters / 5.0, 0.0, 1.0);
+                fragColor = vec4(fogIntensity, 0.0, 0.0, 0.8);
             }
         </script>
         <script id="turboFragment" type="x-shader/x-fragment" src="../shaders/turbo.glsl"></script>
