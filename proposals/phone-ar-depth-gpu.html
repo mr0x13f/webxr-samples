@@ -45,7 +45,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       </details>
     </header>
     <script id="vertexShader" type="x-shader/x-vertex">
-      #version 300 es
       precision mediump float;
 
       in vec2 aVertexPosition;
@@ -157,8 +156,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       }
 
       async function fetchShaders() {
-        vertexShaderSource = document.getElementById('vertexShader').textContent;
-        fragmentShaderSource = await fetchShader("fragmentShader") + "\n"
+        vertexShaderSource = '#version 300 es\n' + document.getElementById('vertexShader').textContent;
+        fragmentShaderSource = '#version 300 es\n' + await fetchShader("fragmentShader") + "\n"
                              + await fetchShader("turboFragment");
 
       }
