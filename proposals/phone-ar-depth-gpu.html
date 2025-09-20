@@ -43,7 +43,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           <a class="back" href="./index.html">Back</a>
         </p>
         <p>
-          iteration: new frag shader 2
+          iteration: new frag shader 3
         </p>
       </details>
     </header>
@@ -71,10 +71,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
       void main(void) {
         vec2 texCoord = (uUvTransform * vec4(vTexCoord.xy, 0, 1)).xy;
-        float depth = texture2D(uDepthTexture, vUv).r;
+        float depth = texture(uDepthTexture, texCoord).r;
         fragColor = vec4(vec3(depth), 0.7);
       }
-
     </script>
     <script id="turboFragment" type="x-shader/x-fragment" src="../shaders/turbo.glsl"></script>
     
