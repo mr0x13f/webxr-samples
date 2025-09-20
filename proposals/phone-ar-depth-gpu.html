@@ -43,7 +43,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           <a class="back" href="./index.html">Back</a>
         </p>
         <p>
-          iteration: changed property
+          iteration: touch event
         </p>
       </details>
     </header>
@@ -211,6 +211,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           xrRefSpace = refSpace;
           session.requestAnimationFrame(onXRFrame);
         });
+
+        canvas.addEventListener('touchstart', e => {
+          console.log(`Touch event: `, e);
+        });
       }
 
       function onEndSession(session) {
@@ -343,7 +347,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
             const depthData = frame.getDepthInformation(view);
             if(depthData){
-              console.log(depthData)
               renderDepthInformationGPU(depthData, view, viewport);
             }
           }
