@@ -43,7 +43,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     <a class="back" href="./index.html">Back</a>
                 </p>
                 <p>
-                    iteration: epth buffer as u16
+                    iteration: depth buffer as u16 + frag shader
                 </p>
             </details>
         </header>
@@ -62,6 +62,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         </script>
         <script id="fragmentShader" type="x-shader/x-vertex">
             precision mediump float;
+            precision highp usampler2D;
 
             uniform usampler2D uDepthTexture;
             uniform mat4 uUvTransform;
@@ -71,8 +72,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
             void main(void) {
                 vec2 texCoord = (uUvTransform * vec4(vTexCoord.xy, 0, 1)).xy;
-                float depth = texture(uDepthTexture, texCoord).r;
-                fragColor = vec4(vec3(depth), 0.7);
+                uint depthVal = texture(uDepthTexture, texCoord).r;
+                float normalized = float(depthVal) / 5000.0; // e.g., normalize to 5m
+                FragColor = vec4(vec3(normalized), 0.7);
             }
         </script>
         <script id="turboFragment" type="x-shader/x-fragment" src="../shaders/turbo.glsl"></script>
