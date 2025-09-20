@@ -43,7 +43,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     <a class="back" href="./index.html">Back</a>
                 </p>
                 <p>
-                    iteration: depth buffer as u16 + frag shader 2
+                    iteration: depth buffer as u16 + frag shader 3
                 </p>
             </details>
         </header>
@@ -327,15 +327,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
                 gl.bindTexture(gl.TEXTURE_2D, depthTexture);
 
-                console.log("Expected bytes:", depthData.width * depthData.height);
-                console.log("Got bytes:", depthData.data.byteLength);
-
                 // Supply the data buffer after converting it to Uint8Array - the
                 // dataBuffer.buffer is an Uint16Array, but the gl.texImage2D expects Uint8Array
                 // when using gl.UNSIGNED_BYTE type.
                 gl.texImage2D(gl.TEXTURE_2D, 0, gl.R16UI, depthData.width,
                                             depthData.height, 0, gl.RED_INTEGER, gl.UNSIGNED_SHORT,
-                                            depthData.data.buffer);
+                                            depthData.data);
 
                 gl.activeTexture(gl.TEXTURE0);
                 gl.uniform1i(programInfo.uniformLocations.depthTexture, 0);
