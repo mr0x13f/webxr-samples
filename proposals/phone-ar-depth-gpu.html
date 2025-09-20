@@ -43,7 +43,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           <a class="back" href="./index.html">Back</a>
         </p>
         <p>
-          iteration: log depth data 2
+          iteration: changed property
         </p>
       </details>
     </header>
@@ -397,7 +397,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         gl.uniform1i(programInfo.uniformLocations.depthTexture, 0);
 
         gl.uniformMatrix4fv(programInfo.uniformLocations.uvTransform, false,
-                            depthData.normTextureFromNormView.matrix);
+                            depthData.normTextureFromNormView?.matrix ?? depthData.normDepthBufferFromNormView?.matrix);
 
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       }
