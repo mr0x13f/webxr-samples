@@ -43,11 +43,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           <a class="back" href="./index.html">Back</a>
         </p>
         <p>
-          logging 2
+          iteration: depth data
         </p>
-        <p id="log">
-
-        </p>
+        <p id="log" style="white-space: pre-line; font-family: monospace;"></p>
       </details>
     </header>
     <script id="vertexShader" type="x-shader/x-vertex">
@@ -325,7 +323,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
       // Called every time a XRSession requests that a new frame be drawn.
       function onXRFrame(t, frame) {
-        log('frame!');
         const session = frame.session;
         session.requestAnimationFrame(onXRFrame);
 
@@ -346,6 +343,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                         viewport.width, viewport.height);
 
             const depthData = frame.getDepthInformation(view);
+            log(`depthData: ${depthData}`);
             if(depthData){
               renderDepthInformationGPU(depthData, view, viewport);
             }
