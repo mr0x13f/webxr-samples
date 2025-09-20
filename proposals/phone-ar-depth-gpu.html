@@ -43,7 +43,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     <a class="back" href="./index.html">Back</a>
                 </p>
                 <p>
-                    iteration: depth buffer as u16 + frag shader 4
+                    iteration: debug depth buffer upload
                 </p>
             </details>
         </header>
@@ -334,11 +334,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                                             depthData.height, 0, gl.RED_INTEGER, gl.UNSIGNED_SHORT,
                                             depthData.data);
 
+                console.log('depthData.data.constructor.name =', depthData.data?.constructor?.name);
+                console.log('ArrayBuffer.isView(depthData.data) =', ArrayBuffer.isView(depthData.data));
+                console.log('byteLength =', depthData.data?.byteLength, 'length =', depthData.data?.length);
+                console.log('expected bytes =', depthData.width * depthData.height * 2);
+
                 gl.activeTexture(gl.TEXTURE0);
                 gl.uniform1i(programInfo.uniformLocations.depthTexture, 0);
 
-                gl.uniformMatrix4fv(programInfo.uniformLocations.uvTransform, false,
-                                                        depthData.normTextureFromNormView?.matrix ?? depthData.normDepthBufferFromNormView?.matrix);
+                gl.uniformMatrix4fv(programInfo.uniformLocations.uvTransform, false, depthData.normTextureFromNormView?.matrix ?? depthData.normDepthBufferFromNormView?.matrix);
 
                 gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
             }
