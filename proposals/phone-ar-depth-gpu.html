@@ -43,7 +43,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     <a class="back" href="./index.html">Back</a>
                 </p>
                 <p>
-                    iteration: log stuff
+                    iteration: red fog
                 </p>
             </details>
         </header>
@@ -65,16 +65,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             precision highp usampler2D;
 
             uniform usampler2D uDepthTexture;
+            uniform float uRawDepthToMeters;
             uniform mat4 uUvTransform;
 
             in vec2 vTexCoord;
             out vec4 fragColor;
 
             void main(void) {
-                vec2 texCoord = (uUvTransform * vec4(vTexCoord.xy, 0, 1)).xy;
-                uint depthVal = texture(uDepthTexture, texCoord).r;
-                float normalized = float(depthVal) / 5000.0; // e.g., normalize to 5m
-                fragColor = vec4(vec3(normalized), 0.7);
+                float depthInMeters = float(texture(uDepthTexture, vTexCoord)).r * uRawDepthToMeters;
+                float intensity = clamp(depthMeters / 5.0, 0.0, 1.0);
+                fragColor = vec4(intensity, 0.0, 0.0, 0.8);
             }
         </script>
         <script id="turboFragment" type="x-shader/x-fragment" src="../shaders/turbo.glsl"></script>
@@ -197,6 +197,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                         uniformLocations: {
                             depthTexture: gl.getUniformLocation(shaderProgram, 'uDepthTexture'),
                             uvTransform: gl.getUniformLocation(shaderProgram, 'uUvTransform'),
+                            rawDepthToMeters: gl.getUniformLocation(shaderProgram, 'uRawDepthToMeters'),
                         },
                 };
 
@@ -334,12 +335,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                                             depthData.height, 0, gl.RED_INTEGER, gl.UNSIGNED_SHORT,
                                             new Uint16Array(depthData.data));
 
-                                            console.log(depthData)
-
                 gl.activeTexture(gl.TEXTURE0);
                 gl.uniform1i(programInfo.uniformLocations.depthTexture, 0);
 
                 gl.uniformMatrix4fv(programInfo.uniformLocations.uvTransform, false, depthData.normTextureFromNormView?.matrix ?? depthData.normDepthBufferFromNormView?.matrix);
+                gl.uniformMatrix4fv(programInfo.uniformLocations.rawDepthToMeters, false, depthData.rawValueToMeters);
 
                 gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
             }
