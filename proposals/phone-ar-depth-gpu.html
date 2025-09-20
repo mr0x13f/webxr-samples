@@ -43,7 +43,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     <a class="back" href="./index.html">Back</a>
                 </p>
                 <p>
-                    iteration: debug depth buffer upload
+                    iteration: debug depth buffer upload 2
                 </p>
             </details>
         </header>
@@ -332,12 +332,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 // when using gl.UNSIGNED_BYTE type.
                 gl.texImage2D(gl.TEXTURE_2D, 0, gl.R16UI, depthData.width,
                                             depthData.height, 0, gl.RED_INTEGER, gl.UNSIGNED_SHORT,
-                                            depthData.data);
-
-                console.log('depthData.data.constructor.name =', depthData.data?.constructor?.name);
-                console.log('ArrayBuffer.isView(depthData.data) =', ArrayBuffer.isView(depthData.data));
-                console.log('byteLength =', depthData.data?.byteLength, 'length =', depthData.data?.length);
-                console.log('expected bytes =', depthData.width * depthData.height * 2);
+                                            new Uint16Array(depthData.data));
 
                 gl.activeTexture(gl.TEXTURE0);
                 gl.uniform1i(programInfo.uniformLocations.depthTexture, 0);
