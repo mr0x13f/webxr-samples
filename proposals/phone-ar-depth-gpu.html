@@ -45,7 +45,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         <p>
           iteration: depth data
         </p>
-        <p id="log" style="white-space: pre-line; font-family: monospace;"></p>
       </details>
     </header>
     <script id="vertexShader" type="x-shader/x-vertex">
@@ -345,6 +344,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             const depthData = frame.getDepthInformation(view);
             log(`depthData: ${depthData}`);
             if(depthData){
+              console.log(depthData)
               renderDepthInformationGPU(depthData, view, viewport);
             }
           }
@@ -405,10 +405,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
       // Start the XR application.
       initXR();
-
-      function log(message) {
-        document.getElementById('log').textContent += '\n' + message;
-      }
     </script>
   </body>
 </html>
